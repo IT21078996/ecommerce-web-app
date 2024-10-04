@@ -5,6 +5,7 @@ import { ProductProvider } from "./context/ProductContext.jsx";
 import { OrderProvider } from "./context/OrderContext.jsx";
 
 import Login from "./pages/Login.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 import OrderListPage from "./pages/order/OrderListPage.jsx";
 import ProductListPage from "./pages/product/ProductListPage.jsx";
 import ProductEditPage from "./pages/product/ProductEditPage.jsx";
@@ -13,9 +14,9 @@ import InventoryListPage from "./pages/inventory/InventoryListPage.jsx";
 import VendorListPage from "./pages/vendor/VendorListPage.jsx";
 
 import Layout from "./components/Layout.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 import './styles/globals/global.css';
-
 
 function App() {
 
@@ -28,13 +29,62 @@ function App() {
                         <Layout>
                             <Routes>
                                 <Route path="/login" element={<Login />} />
-                                <Route path="/products" element={<ProductListPage />} />
-                                <Route path="/products" element={<ProductListPage />} />
-                                <Route path="/products/edit/:id" element={<ProductEditPage />} />
-                                <Route path="/users" element={<UserListPage />} />
-                                <Route path="/vendors" element={<VendorListPage />} />
-                                <Route path="/inventory" element={<InventoryListPage />} />
-                                <Route path="/orders" element={<OrderListPage />} />
+                                <Route
+                                    path="/"
+                                    element={
+                                        <ProtectedRoute roles={['Administrator', 'Vendor', 'CSR']}>
+                                            <Dashboard />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/products"
+                                    element={
+                                        <ProtectedRoute roles={['Administrator', 'Vendor', 'CSR']}>
+                                            <ProductListPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/products/edit/:id"
+                                    element={
+                                        <ProtectedRoute roles={['Administrator']}>
+                                            <ProductEditPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/users"
+                                    element={
+                                        <ProtectedRoute roles={['Administrator']}>
+                                            <UserListPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/vendors"
+                                    element={
+                                        <ProtectedRoute roles={['Administrator']}>
+                                            <VendorListPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/inventory"
+                                    element={
+                                        <ProtectedRoute roles={['Administrator']}>
+                                            <InventoryListPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/orders"
+                                    element={
+                                        <ProtectedRoute roles={['Administrator', 'Vendor', 'CSR']}>
+                                            <OrderListPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
                             </Routes>
                         </Layout>
                     </BrowserRouter>
