@@ -5,6 +5,7 @@ import '../styles/components/ProductForm.css';
 const ProductForm = ({ initialData = {}, onClose }) => {
     const { createProduct, updateProduct } = useProducts(); // Access the createProduct function
     const [product, setProduct] = useState({
+        id: initialData.id || '',
         productName: initialData.productName || '',
         description: initialData.description || '',
         price: initialData.price || 0,
