@@ -24,8 +24,53 @@ export const OrderProvider = ({ children }) => {
         }
     };
 
+    // Create new order
+    const createOrder = async (orderData) => {
+        try {
+            const response = await axios.post(`${baseUrl}/Order`, orderData);
+            setOrders((prevOrders) => [...prevOrders, response.data]); // Add new order to state
+            return response.data;
+        } catch (error) {
+            console.error('Error creating order:', error);
+            throw error;
+        }
+    };
+
+    // Update an existing order
+    const updateOrder = async (id, updatedData) => {
+        try {
+            const response = await axios.put(`${baseUrl}/Order/${id}`, updatedData);
+
+            if (response.status === 200) {
+                setOrders((prevOrders) =>
+                    prevOrders.map((order) =>
+                        order.id === id ? response.data : order
+                    )
+                );
+            } else {
+                console.error('Error: Order update failed');
+            }
+
+            return response.data;
+        } catch (error) {
+            console.error('Error updating order:', error);
+            throw error;
+        }
+    };
+
+    // Delete a order by ID
+    const deleteOrder = async (id) => {
+        try {
+            await axios.delete(`${baseUrl}/Order/${id}`);
+            setOrders((prevOrders) => prevOrders.filter(order => order.id !== id));
+        } catch (error) {
+            console.error('Error deleting order:', error);
+            throw error;
+        }
+    };
+
     return (
-        <OrderContext.Provider value={{ orders, fetchOrders, loading, error }}>
+        <OrderContext.Provider value={{ orders, fetchOrders, createOrder, updateOrder, deleteOrder, loading, error }}>
             {children}
         </OrderContext.Provider>
     );
