@@ -16,7 +16,8 @@ export const AuthProvider = ({ children }) => {
         // Extract the role from the token payload
         const roleClaim = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
         const role = userData[roleClaim]; // Access role from custom claim
-        setUser({ ...userData, role }); // Add role to user data
+        const email = userData.sub;
+        setUser({ ...userData, role, email }); // Add role & email to user data
     };
 
     const logout = () => {
@@ -39,8 +40,9 @@ export const AuthProvider = ({ children }) => {
                     logout();
                 } else {
                     const roleClaim = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
+                    const email = decodedToken.sub;
                     const role = decodedToken[roleClaim]; // Extract role from the token
-                    setUser({ ...decodedToken, role }); // Set the user and role if the token is valid
+                    setUser({ ...decodedToken, role, email }); // Set the user and role if the token is valid
                 }
             } catch (error) {
                 console.error('Error decoding token:', error);

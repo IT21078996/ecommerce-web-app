@@ -6,6 +6,7 @@ const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
+    const [message, setMessage] = useState(null);
 
     // Fetch existing products
     const fetchProducts = async () => {
@@ -66,8 +67,45 @@ export const ProductProvider = ({ children }) => {
         }
     };
 
+    // Activate a product
+    const activateProduct = async (id) => {
+        try {
+            const response = await axios.patch(`${baseUrl}/product/activate/${id}`);
+            setProducts((prevProducts) =>
+                prevProducts.map((product) =>
+                    product.id === id ? { ...product, isActive: true } : product
+                )
+            );
+            setMessage({ type: 'success', text: response.data.message });
+        } catch (error) {
+            console.error('Error activating product:', error);
+            setMessage({ type: 'error', text: 'Error activating product' });
+        }
+    };
+
+    // Deactivate a product
+    const deactivateProduct = async (id) => {
+        try {
+            const response = await axios.patch(`${baseUrl}/product/deactivate/${id}`);
+            setProducts((prevProducts) =>
+                prevProducts.map((product) =>
+                    product.id === id ? { ...product, isActive: false } : product
+                )
+            );
+            setMessage({ type: 'success', text: response.data.message });
+        } catch (error) {
+            console.error('Error deactivating product:', error);
+            setMessage({ type: 'error', text: 'Error deactivating product' });
+        }
+    };
+
+    // Clear notification message after 5 seconds
+    const clearMessage = () => {
+        setTimeout(() => setMessage(null), 5000);
+    };
+
     return (
-        <ProductContext.Provider value={{ products, fetchProducts, createProduct, updateProduct, deleteProduct }}>
+        <ProductContext.Provider value={{ products, fetchProducts, createProduct, updateProduct, deleteProduct, activateProduct, deactivateProduct, message, clearMessage }}>
             {children}
         </ProductContext.Provider>
     );
