@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
+import { useAuth } from "../context/AuthContext.jsx";
 import { useProducts } from '../context/ProductContext';
 import '../styles/components/ProductForm.css';
 
 const ProductForm = ({ initialData = {}, onClose }) => {
-    const { createProduct, updateProduct } = useProducts(); // Access the createProduct function
+    const { createProduct, updateProduct } = useProducts();
+    const { user } = useAuth();
+    const [vendorId, setVendorId] = useState(initialData.vendorId || '');
+    const [selectedFileName, setSelectedFileName] = useState('');
     const [product, setProduct] = useState({
         id: initialData.id || '',
         productName: initialData.productName || '',
@@ -11,11 +16,46 @@ const ProductForm = ({ initialData = {}, onClose }) => {
         price: initialData.price || 0,
         stock: initialData.stock || 0,
         category: initialData.category || '',
-        vendorId: initialData.vendorId || '66edabc4692d23e8ebfdec69',  // Need to replace with a logic to get vendorId
+        vendorId: initialData.vendorId,
         isActive: initialData.isActive !== undefined ? initialData.isActive : true,
         rating: initialData.rating || 0,
-        imageUrl: initialData.imageUrl || '',
+        base64Image: initialData.base64Image || '',
     });
+
+    // Fetch the vendorId based on the logged-in user's email
+    useEffect(() => {
+        const fetchVendorId = async () => {
+            try {
+                const response = await axios.get(`https://localhost:44358/api/User?email=${user.email}`);
+                const userData = response.data;
+                const matchedUser = userData.find(u => u.email === user.email);
+                if (matchedUser) {
+                    setVendorId(matchedUser.id); // Set vendorId after fetching the user by email
+                    setProduct((prevProduct) => ({ ...prevProduct, vendorId: matchedUser.id })); // Update product with the vendorId
+                } else {
+                    console.error('User not found');
+                }
+            } catch (error) {
+                console.error('Error fetching vendorId:', error);
+            }
+        };
+
+        if (user && user.email) {
+            fetchVendorId(); // Only fetch if the user is logged in
+        }
+    }, [user]);
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSelectedFileName(file.name);  // Set the selected file name
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setProduct({ ...product, base64Image: reader.result });  // Convert image to base64
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -56,7 +96,8 @@ const ProductForm = ({ initialData = {}, onClose }) => {
             <input name="stock" type="number" value={product.stock} onChange={handleChange} placeholder="Stock"
                    required/>
             <input name="category" value={product.category} onChange={handleChange} placeholder="Category" required/>
-            <input name="imageUrl" value={product.imageUrl} onChange={handleChange} placeholder="Image URL" required/>
+            <input type="file" onChange={handleFileChange} accept="image/png, image/jpeg"/>
+            {selectedFileName && <p>{selectedFileName}</p>}
             <button type="submit">{initialData.id ? 'Update Product' : 'Save Product'}</button>
         </form>
     );
