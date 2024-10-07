@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {FaEdit, FaTrash} from "react-icons/fa";
 import {useProducts} from "../context/ProductContext.jsx";
 import '../styles/components/ProductTable.css';
 
@@ -40,6 +41,7 @@ const ProductTable = ({ products, onEdit, onDelete }) => {
                     <th>Stock</th>
                     <th>Rating</th>
                     <th>Actions</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,17 +64,19 @@ const ProductTable = ({ products, onEdit, onDelete }) => {
                         <td>{product.stock}</td>
                         <td>{product.rating}</td>
                         <td>
-                            <button className="action-button edit-button" onClick={() => onEdit(product)}>
-                                Edit
-                            </button>
-                            <button className="action-button delete-button" onClick={() => onDelete(product.id)}>
-                                Delete
-                            </button>
                             <button
                                 className={`action-button ${product.isActive ? 'deactivate-button' : 'activate-button'}`}
                                 onClick={() => handleToggle(product.id, product.isActive)}
                             >
                                 {product.isActive ? 'Deactivate' : 'Activate'}
+                            </button>
+                        </td>
+                        <td>
+                            <button className="action-button edit-button" onClick={() => onEdit(product)}>
+                                <FaEdit/>
+                            </button>
+                            <button className="action-button delete-button" onClick={() => onDelete(product.id)}>
+                                <FaTrash/>
                             </button>
                         </td>
                     </tr>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import {FaEdit, FaTrash} from "react-icons/fa";
 import {useAuth} from "../context/AuthContext.jsx";
 import '../styles/components/OrderTable.css'
 
@@ -116,6 +117,7 @@ const OrderTable = ({ orders, onEdit, onDelete }) => {
                 <th>Total Amount</th>
                 <th>Status</th>
                 <th>Actions</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -130,8 +132,14 @@ const OrderTable = ({ orders, onEdit, onDelete }) => {
                     <td>
                         {renderVendorActions(order)}
                         {renderCsrAdminActions(order)}
-                        <button className="action-button edit-button" onClick={() => onEdit(order)}>Edit</button>
-                        <button className="action-button delete-button" onClick={() => onDelete(order.id)}>Delete</button>
+                    </td>
+                    <td>
+                        <button className="action-button edit-button" onClick={() => onEdit(order)}>
+                            <FaEdit/>
+                        </button>
+                        <button className="action-button delete-button" onClick={() => onDelete(order.id)}>
+                            <FaTrash/>
+                        </button>
                     </td>
                 </tr>
             ))}
