@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -105,7 +105,17 @@ export const ProductProvider = ({ children }) => {
     };
 
     return (
-        <ProductContext.Provider value={{ products, fetchProducts, createProduct, updateProduct, deleteProduct, activateProduct, deactivateProduct, message, clearMessage }}>
+        <ProductContext.Provider value={{
+            products,
+            fetchProducts,
+            createProduct,
+            updateProduct,
+            deleteProduct,
+            activateProduct,
+            deactivateProduct,
+            message,
+            clearMessage
+        }}>
             {children}
         </ProductContext.Provider>
     );
