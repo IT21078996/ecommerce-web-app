@@ -1,0 +1,97 @@
+.add-inventory-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-inventory-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .add-inventory-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .add-inventory-form label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .add-inventory-form input,
+  .add-inventory-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s ease;
+  }
+  
+  .add-inventory-form input:focus,
+  .add-inventory-form select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .add-inventory-form button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-inventory-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-inventory-form button[type="button"] {
+    background-color: #6c757d;
+  }
+  
+  .add-inventory-form button[type="button"]:hover {
+    background-color: #5a6268;
+  }
+  
+  .add-inventory-form select option[disabled] {
+    color: #999;
+  }
+  
+  /* Optional: Make the form more responsive */
+  @media (max-width: 768px) {
+    .add-inventory-form {
+      padding: 15px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .add-inventory-form {
+      padding: 10px;
+    }
+  
+    .add-inventory-form h2 {
+      font-size: 20px;
+    }
+  
+    .add-inventory-form input,
+    .add-inventory-form select {
+      font-size: 14px;
+    }
+  
+    .add-inventory-form button {
+      font-size: 14px;
+    }
+  }
+  
