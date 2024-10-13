@@ -62,59 +62,71 @@ const UserForm = ({ initialData = {}, onClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="user-form">
-      <input
-        name="email"
-        type="email"
-        value={user.email}
-        onChange={handleChange}
-        placeholder="Email"
-        required
-      />
-      <div className="password-wrapper">
-        <input
-          name="password"
-          type={passwordVisible ? "text" : "password"}
-          value={user.password}
-          onChange={handleChange}
-          placeholder="Password"
-          required
-        />
-        <span className="toggle-password" onClick={togglePasswordVisibility}>
-          {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-        </span>
-      </div>
-      <input
-        name="username"
-        value={user.username}
-        onChange={handleChange}
-        placeholder="Username"
-        required
-      />
-      <label htmlFor="role">Role</label>
-      <select name="role" value={user.role} onChange={handleChange} required>
-        {roles.map((role) => (
-          <option key={role} value={role}>
-            {role}
-          </option>
-        ))}
-      </select>
-      {!user.id && (
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              name="isActive"
-              checked={user.isActive}
-              onChange={() => setUser({ ...user, isActive: !user.isActive })}
+      <form onSubmit={handleSubmit}>
+          <label htmlFor="email">Email</label>
+          <input
+              id="email"
+              name="email"
+              type="email"
+              value={user.email}
+              onChange={handleChange}
+              placeholder="Email"
               required
-            />
-            Active
-          </label>
-        </div>
-      )}
-      <button type="submit">{user.id ? "Update User" : "Save User"}</button>
-    </form>
+          />
+
+          <label htmlFor="password">Password</label>
+          <div className="password-wrapper">
+              <input
+                  id="password"
+                  name="password"
+                  type={passwordVisible ? "text" : "password"}
+                  value={user.password}
+                  onChange={handleChange}
+                  placeholder="Password"
+                  required
+              />
+              <span className="toggle-password" onClick={togglePasswordVisibility}>
+                {passwordVisible ? <FaEyeSlash/> : <FaEye/>}
+              </span>
+          </div>
+
+          <label htmlFor="username">Username</label>
+          <input
+              id="username"
+              name="username"
+              value={user.username}
+              onChange={handleChange}
+              placeholder="Username"
+              required
+          />
+
+          <label htmlFor="role">Role</label>
+          <select name="role" value={user.role} onChange={handleChange} required>
+              {roles.map((role) => (
+                  <option key={role} value={role}>
+                      {role}
+                  </option>
+              ))}
+          </select>
+
+          {!user.id && (
+              <label htmlFor="isActive">
+                  Active
+                  <input
+                      id="isActive"
+                      type="checkbox"
+                      name="isActive"
+                      checked={user.isActive}
+                      onChange={() => setUser({...user, isActive: !user.isActive})}
+                      required
+                  />
+              </label>
+          )}
+
+          <div className="form-actions">
+              <button type="submit">{user.id ? "Update User" : "Save User"}</button>
+          </div>
+      </form>
   );
 };
 

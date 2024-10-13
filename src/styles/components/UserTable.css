@@ -1,0 +1,35 @@
+.user-image-small {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.user-status.active {
+    color: green;
+    font-weight: bold;
+}
+
+.user-status.inactive {
+    color: red;
+    font-weight: bold;
+}
+
+.notification {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.notification.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.notification.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}

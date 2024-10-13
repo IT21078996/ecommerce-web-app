@@ -1,119 +1,110 @@
-.vendor-management-container {
-    margin: 20px;
-    padding: 20px;
-    background-color: #1e1e2f;
-    border-radius: 10px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-  }
-  
-  .vendor-header {
-    display: flex;
-    justify-content: space-between; /* This ensures the heading is on the left and the button is on the right */
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .vendor-header h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #ffffff;
-  }
-  
-  .add-vendor-btn {
-    display: inline-block;
-    background-color: #28a745;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .add-vendor-btn:hover {
-    background-color: #218838;
-  }
-  
-  .vendor-table-container {
-    width: 100%;
-    overflow-x: auto;
-  }
-  
-  .vendor-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #2d2d44;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  .vendor-table th,
-  .vendor-table td {
-    padding: 15px;
-    text-align: left;
-    color: #e0e0e0;
-  }
-  
-  .vendor-table th {
-    background-color: #1e1e2f;
-    font-weight: bold;
-  }
-  
-  .vendor-table tr {
-    border-bottom: 1px solid #3b3b57;
-    transition: background-color 0.3s ease;
-  }
-  
-  .vendor-table tr:hover {
-    background-color: #343455;
-  }
-  
-  .vendor-table td {
-    border-bottom: 1px solid #3b3b57;
-  }
-  
-  .actions {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .edit-btn,
-  .delete-btn {
-    padding: 8px 16px;
-    border-radius: 5px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .edit-btn {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .edit-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .delete-btn {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .delete-btn:hover {
-    background-color: #c82333;
-  }
-  
-  .vendor-table td:first-child,
-  .vendor-table th:first-child {
-    padding-left: 25px;
-  }
-  
-  .vendor-table td:last-child,
-  .vendor-table th:last-child {
-    padding-right: 25px;
-  }
-  
+.vendor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.vendor-header h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.add-vendor-btn {
+  display: inline-block;
+  background-color: #28a745;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.add-vendor-btn:hover {
+  background-color: #218838;
+}
+
+.vendor-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.vendor-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #2d2d44;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.vendor-table th,
+.vendor-table td {
+  padding: 15px;
+  text-align: left;
+  color: #e0e0e0;
+}
+
+.vendor-table th {
+  background-color: #1e1e2f;
+  font-weight: bold;
+}
+
+.vendor-table tr {
+  border-bottom: 1px solid #3b3b57;
+  transition: background-color 0.3s ease;
+}
+
+.vendor-table tr:hover {
+  background-color: #343455;
+}
+
+.vendor-table td {
+  border-bottom: 1px solid #3b3b57;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #0056b3;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+.vendor-table td:first-child,
+.vendor-table th:first-child {
+  padding-left: 25px;
+}
+
+.vendor-table td:last-child,
+.vendor-table th:last-child {
+  padding-right: 25px;
+}

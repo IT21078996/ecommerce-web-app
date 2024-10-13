@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useUsers } from "../../context/UserContext";
 import UserTable from "../../components/UserTable";
 import UserForm from "../../components/UserForm";
-import "../../styles/pages/UserListPage.css";
+import "../../styles/components/OrderForm.css";
 
 const UserListPage = () => {
   const { users, fetchUsers, updateUser, deleteUser } = useUsers();
@@ -51,7 +51,7 @@ const UserListPage = () => {
   };
 
   return (
-    <div className="user-list">
+    <div className="product-list">
       <div className="header">
         <h2>User Management</h2>
         <button className="create-button" onClick={() => openForm()}>
@@ -69,22 +69,15 @@ const UserListPage = () => {
 
       {/* Modal for creating or editing users */}
       {isFormOpen && (
-        <div
-          className="modal"
-          style={{
-            zIndex: 1000,
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "#fff",
-          }}
-        >
+        <div className="modal">
           <div className="modal-content">
+            <div className="modal-header">
+              <h3>User Form</h3>
+              <button className="close-button" onClick={closeForm}>
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
             <UserForm initialData={selectedUser} onClose={closeForm} />
-            <button className="close-button" onClick={closeForm}>
-              Close
-            </button>
           </div>
         </div>
       )}

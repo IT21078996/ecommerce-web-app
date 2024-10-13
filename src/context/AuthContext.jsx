@@ -13,11 +13,12 @@ export const AuthProvider = ({ children }) => {
         // Decode the token to get user details
         const userData = jwtDecode(token);
 
-        // Extract the role from the token payload
+        // Extract the role, email, and userId from the token payload
         const roleClaim = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
-        const role = userData[roleClaim]; // Access role from custom claim
         const email = userData.sub;
-        setUser({ ...userData, role, email }); // Add role & email to user data
+        const role = userData[roleClaim];
+        const userId = userData.id;
+        setUser({ ...userData, role, email, userId }); // Add them to user data
     };
 
     const logout = () => {

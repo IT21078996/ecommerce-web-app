@@ -31,10 +31,7 @@ const VendorForm = ({ vendor, onSubmit, onCancel }) => {
   };
 
   return (
-    <div className="vendor-form">
-      <h2>{vendor ? "Edit Vendor" : "Add Vendor"}</h2>
       <form onSubmit={handleSubmit}>
-        <div>
           <label>Vendor Name</label>
           <input
             type="text"
@@ -42,8 +39,7 @@ const VendorForm = ({ vendor, onSubmit, onCancel }) => {
             onChange={(e) => setVendorName(e.target.value)}
             required
           />
-        </div>
-        <div>
+
           <label>Email</label>
           <input
             type="email"
@@ -51,8 +47,7 @@ const VendorForm = ({ vendor, onSubmit, onCancel }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <div>
+
           <label>Phone</label>
           <input
             type="text"
@@ -60,25 +55,20 @@ const VendorForm = ({ vendor, onSubmit, onCancel }) => {
             onChange={(e) => setPhone(e.target.value)}
             required
           />
-        </div>
-        <div>
+
           <label>Address</label>
           <input
             type="text"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
-        </div>
-        <div className="vendor-form-buttons">
+
+        <div className="form-actions">
           <button type="submit">
             {vendor ? "Update Vendor" : "Add Vendor"}
           </button>
-          <button class name="cancel-btn" type="button" onClick={onCancel}>
-            Cancel
-          </button>
         </div>
       </form>
-    </div>
   );
 };
 
