@@ -87,18 +87,34 @@ const ProductForm = ({ initialData = {}, onClose }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input name="productName" value={product.productName} onChange={handleChange} placeholder="Product Name"
+            <label htmlFor="productName">Product Name</label>
+            <input id="productName" name="productName" value={product.productName} onChange={handleChange}
+                   placeholder="Product Name" required/>
+
+            <label htmlFor="description">Description</label>
+            <textarea id="description" name="description" value={product.description} onChange={handleChange}
+                      placeholder="Description" required/>
+
+            <label htmlFor="price">Price</label>
+            <input id="price" name="price" type="number" value={product.price} onChange={handleChange}
+                   placeholder="Price" required/>
+
+            <label htmlFor="stock">Stock</label>
+            <input id="stock" name="stock" type="number" value={product.stock} onChange={handleChange}
+                   placeholder="Stock" required/>
+
+            <label htmlFor="category">Category</label>
+            <input id="category" name="category" value={product.category} onChange={handleChange} placeholder="Category"
                    required/>
-            <textarea name="description" value={product.description} onChange={handleChange} placeholder="Description"
-                      required/>
-            <input name="price" type="number" value={product.price} onChange={handleChange} placeholder="Price"
-                   required/>
-            <input name="stock" type="number" value={product.stock} onChange={handleChange} placeholder="Stock"
-                   required/>
-            <input name="category" value={product.category} onChange={handleChange} placeholder="Category" required/>
-            <input type="file" onChange={handleFileChange} accept="image/png, image/jpeg"/>
+
+            <label htmlFor="imageUpload">Product Image</label>
+            <input id="imageUpload" type="file" onChange={handleFileChange} accept="image/png, image/jpeg"/>
+
             {selectedFileName && <p>{selectedFileName}</p>}
-            <button type="submit">{initialData.id ? 'Update Product' : 'Save Product'}</button>
+
+            <div className="form-actions">
+                <button type="submit">{initialData.id ? 'Update Product' : 'Save Product'}</button>
+            </div>
         </form>
     );
 };

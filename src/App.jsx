@@ -15,6 +15,7 @@ import ProductEditPage from "./pages/product/ProductEditPage.jsx";
 import UserListPage from "./pages/user/UserListPage.jsx";
 import InventoryListPage from "./pages/inventory/InventoryListPage.jsx";
 import VendorListPage from "./pages/vendor/VendorListPage.jsx";
+import AddInventoryItemForm from "./components/AddInventoryItemForm.jsx";
 
 import Layout from "./components/Layout.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
@@ -80,6 +81,14 @@ function App() {
                                                     element={
                                                         <ProtectedRoute roles={['Administrator']}>
                                                             <InventoryListPage/>
+                                                        </ProtectedRoute>
+                                                    }
+                                                />
+                                                <Route
+                                                    path="/inventory/add"
+                                                    element={
+                                                        <ProtectedRoute roles={["Administrator"]}>
+                                                            <AddInventoryItemForm />
                                                         </ProtectedRoute>
                                                     }
                                                 />

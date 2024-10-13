@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useVendors } from "../../context/VendorContext";
 import VendorTable from "../../components/VendorTable";
 import VendorForm from "../../components/VendorForm";
+import {useNavigate} from "react-router-dom";
 
 const VendorListPage = () => {
   const { vendors, deleteVendor, updateVendor, addVendor } = useVendors();
   const [selectedVendor, setSelectedVendor] = useState(null);
   const [isAddingNew, setIsAddingNew] = useState(false);
+  const navigate = useNavigate();
 
   // Handle when a user clicks "Edit" on a vendor
   const handleEdit = (vendorId) => {
@@ -44,35 +46,35 @@ const VendorListPage = () => {
     setIsAddingNew(false); // Exit form mode
   };
 
-  // Handle adding a new vendor (show the form)
   const handleAddVendor = () => {
-    setSelectedVendor(null); // Ensure no vendor is selected
-    setIsAddingNew(true); // Switch to add mode
+    navigate('/users'); // Navigate to the desired URL
   };
 
+  // Handle adding a new vendor (show the form)
+  // const handleAddVendor = () => {
+  //   setSelectedVendor(null); // Ensure no vendor is selected
+  //   setIsAddingNew(true); // Switch to add mode
+  // };
+
   return (
-    <div className="vendor-list-page">
-      <h2>Vendor Management</h2>
-
-      {selectedVendor || isAddingNew ? (
-        // Show VendorForm for both add and edit scenarios
-        <VendorForm
-          vendor={selectedVendor}
-          onSubmit={handleFormSubmit}
-          onCancel={handleCancelForm}
-        />
-      ) : (
-        <>
-          <button className="add-vendor-btn" onClick={handleAddVendor}>
-            Add Vendor
-          </button>
-
-          <VendorTable
-            vendors={vendors}
-            onDelete={handleDelete}
-            onEdit={handleEdit}
-          />
-        </>
+    <div className={"product-list"}>
+      <div className="header">
+        <h2>Vendor Management</h2>
+        <button className="create-button" onClick={handleAddVendor}>Create Vendor</button>
+      </div>
+      <VendorTable vendors={vendors} onEdit={handleEdit} onDelete={handleDelete}/>
+      {selectedVendor && (
+          <div className="modal">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h3>Vendor Form</h3>
+                <button className="close-button" onClick={handleCancelForm}>
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <VendorForm vendor={selectedVendor} onSubmit={handleFormSubmit} onCancel={handleCancelForm}/>
+            </div>
+          </div>
       )}
     </div>
   );

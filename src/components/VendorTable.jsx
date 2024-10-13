@@ -1,52 +1,42 @@
 import React from "react";
 import "../styles/pages/VendorListPage.css";
+import {FaEdit, FaTrash} from "react-icons/fa";
 
 const VendorTable = ({ vendors, onDelete, onEdit, onAddVendor }) => {
   return (
-    <div className="vendor-management-container">
-      <div className="vendor-header">
-        <h2>Vendor Management</h2>
-      </div>
-      <div className="vendor-table-container">
-        <table className="vendor-table">
-          <thead>
-            <tr>
-              <th>Vendor Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Rating</th>
-              <th>Review Count</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {vendors.map((vendor) => (
-              <tr key={vendor.id}>
+    <table className="product-table">
+      <thead>
+        <tr>
+          <th>Vendor Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Rating</th>
+          <th>Review Count</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {vendors.map((vendor) => (
+            <tr key={vendor.id}>
                 <td>{vendor.vendorName}</td>
                 <td>{vendor.email}</td>
                 <td>{vendor.phone}</td>
                 <td>{vendor.rating}</td>
                 <td>{vendor.reviewCount}</td>
-                <td className="actions">
-                  <button
-                    className="edit-btn"
-                    onClick={() => onEdit(vendor.id)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="delete-btn"
-                    onClick={() => onDelete(vendor.id)}
-                  >
-                    Delete
-                  </button>
+                <td>
+                    <div className="button-container">
+                        <button className="edit-button" onClick={() => onEdit(vendor.id)}>
+                            <FaEdit/>
+                        </button>
+                        <button className="delete-button" onClick={() => onDelete(vendor.id)}>
+                            <FaTrash/>
+                        </button>
+                    </div>
                 </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+            </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

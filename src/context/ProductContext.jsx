@@ -1,12 +1,40 @@
 import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios';
+import {useAuth} from "./AuthContext.jsx";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
+    const {user} = useAuth();
     const [products, setProducts] = useState([]);
     const [message, setMessage] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    // Fetch products by vendor
+    const fetchVendorProducts = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            let response;
+
+            if (user.role === 'Vendor') {
+                response = await axios.get(`${baseUrl}/Product/vendor/${user.id}`);
+            } else if (user.role === 'Administrator' || user.role === 'CSR') {
+                response = await axios.get(`${baseUrl}/Product`);
+            } else {
+                throw new Error('Unauthorized role');
+            }
+
+            setProducts(response.data);
+        } catch (err) {
+            console.error('Error fetching products:', err);
+            setError('Failed to load products');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     // Fetch existing products
     const fetchProducts = async () => {
@@ -114,7 +142,8 @@ export const ProductProvider = ({ children }) => {
             activateProduct,
             deactivateProduct,
             message,
-            clearMessage
+            clearMessage,
+            fetchVendorProducts
         }}>
             {children}
         </ProductContext.Provider>

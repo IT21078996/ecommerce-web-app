@@ -29,7 +29,7 @@ const ProductTable = ({ products, onEdit, onDelete }) => {
                 </div>
             )}
 
-            <table className="product-table">
+            <table>
                 <thead>
                 <tr>
                     <th>Image</th>
@@ -65,19 +65,21 @@ const ProductTable = ({ products, onEdit, onDelete }) => {
                         <td>{product.rating}</td>
                         <td>
                             <button
-                                className={`action-button ${product.isActive ? 'deactivate-button' : 'activate-button'}`}
+                                className={`${product.isActive ? 'deactivate-button' : 'activate-button'}`}
                                 onClick={() => handleToggle(product.id, product.isActive)}
                             >
                                 {product.isActive ? 'Deactivate' : 'Activate'}
                             </button>
                         </td>
                         <td>
-                            <button className="action-button edit-button" onClick={() => onEdit(product)}>
-                                <FaEdit/>
-                            </button>
-                            <button className="action-button delete-button" onClick={() => onDelete(product.id)}>
-                                <FaTrash/>
-                            </button>
+                            <div className="button-container">
+                                <button className="edit-button" onClick={() => onEdit(product)}>
+                                    <FaEdit/>
+                                </button>
+                                <button className="delete-button" onClick={() => onDelete(product.id)}>
+                                    <FaTrash/>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 ))}

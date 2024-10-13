@@ -1,20 +1,21 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
-import ".././styles/pages/UserListPage.css";
+import ".././styles/components/UserTable.css";
 
 const UserTable = ({ users, onEdit, onToggleStatus }) => {
   return (
-    <table className="user-table">
+    <table>
       <thead>
-        <tr>
+      <tr>
           <th>Email</th>
           <th>Username</th>
           <th>Role</th>
           <th>Status</th>
           <th>Actions</th>
-        </tr>
+          <th></th>
+      </tr>
       </thead>
-      <tbody>
+        <tbody>
         {users.map((user) => (
           <tr key={user.id}>
             <td>{user.email}</td>
@@ -33,20 +34,22 @@ const UserTable = ({ users, onEdit, onToggleStatus }) => {
             <td>
               {/* Toggle Active/Inactive in the Actions column */}
               <button
-                className={`status-button ${
+                className={`${
                   user.isActive ? "active" : "inactive"
                 }`}
                 onClick={() => onToggleStatus(user.id, !user.isActive)}
               >
                 {user.isActive ? "Inactive" : "Set Active"}
               </button>
+            </td>
+            <td>
               <button className="edit-button" onClick={() => onEdit(user)}>
-                <FaEdit />
+                <FaEdit/>
               </button>
             </td>
           </tr>
         ))}
-      </tbody>
+        </tbody>
     </table>
   );
 };

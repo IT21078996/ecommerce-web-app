@@ -5,12 +5,12 @@ import ProductForm from "../../components/ProductForm.jsx";
 import '../../styles/pages/ProductListPage.css';
 
 const ProductListPage = () => {
-    const { products, fetchProducts, deleteProduct } = useProducts();
+    const { products, fetchVendorProducts, deleteProduct } = useProducts();
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
-        fetchProducts();
+        fetchVendorProducts();
     }, []);
 
     const openForm = (product = null) => {
@@ -41,8 +41,13 @@ const ProductListPage = () => {
             {isFormOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <ProductForm initialData={selectedProduct} onClose={closeForm} />
-                        <button className="close-button" onClick={closeForm}>Close</button>
+                        <div className="modal-header">
+                            <h3>Product Form</h3>
+                            <button className="close-button" onClick={closeForm}>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <ProductForm initialData={selectedProduct} onClose={closeForm}/>
                     </div>
                 </div>
             )}

@@ -10,9 +10,7 @@ const ORDER_STATUSES = [
     'Pending',             // 0
     'Processing',          // 1
     'Ready for Shipment',  // 2
-    // 'Partially Ready',
     'Order Dispatched',    // 3
-    // 'Partially Delivered',
     'Delivered',           // 4
     'Cancelled',           // 5
 ];
@@ -80,13 +78,13 @@ const OrderTable = ({ orders, onEdit, onDelete }) => {
         if (user.role === 'Vendor') {
             switch (order.status) {
                 case 0: // Pending
-                    return <button className="action-button" onClick={() => handleStatusChange(order.id, 1)}>Accept Order</button>;
+                    return <button onClick={() => handleStatusChange(order.id, 1)}>Accept Order</button>;
                 case 1: // Processing
-                    return <button className="action-button" onClick={() => handleStatusChange(order.id, 2)}>Mark as Ready</button>;
+                    return <button onClick={() => handleStatusChange(order.id, 2)}>Mark as Ready</button>;
                 case 2: // Ready for Shipment
-                    return <button className="action-button" onClick={() => handleStatusChange(order.id, 3)}>Dispatch Order</button>;
+                    return <button onClick={() => handleStatusChange(order.id, 3)}>Dispatch Order</button>;
                 case 3: // Order Dispatched
-                    return <button className="action-button" onClick={() => handleStatusChange(order.id, 4)}>Mark as Delivered</button>;
+                    return <button onClick={() => handleStatusChange(order.id, 4)}>Mark as Delivered</button>;
                 default:
                     return null;
             }
@@ -97,17 +95,17 @@ const OrderTable = ({ orders, onEdit, onDelete }) => {
     const renderCsrAdminActions = (order) => {
         if (user.role === 'CSR' || user.role === 'Administrator') {
             if (order.status === 3) {
-                return <button className="action-button" onClick={() => handleStatusChange(order.id, 4)}>Mark as Delivered</button>;
+                return <button onClick={() => handleStatusChange(order.id, 4)}>Mark as Delivered</button>;
             }
             if (order.status !== 5) {
-                return <button className="action-button" onClick={() => handleCancelOrder(order.id)}>Cancel Order</button>;
+                return <button onClick={() => handleCancelOrder(order.id)}>Cancel Order</button>;
             }
         }
         return null;
     };
 
     return (
-        <table className="product-table">
+        <table>
             <thead>
             <tr>
                 <th>Order ID</th>
@@ -134,15 +132,17 @@ const OrderTable = ({ orders, onEdit, onDelete }) => {
                         {renderCsrAdminActions(order)}
                     </td>
                     <td>
-                        <button className="action-button edit-button" onClick={() => onEdit(order)}>
-                            <FaEdit/>
-                        </button>
-                        <button className="action-button delete-button" onClick={() => onDelete(order.id)}>
-                            <FaTrash/>
-                        </button>
+                        <div className="button-container">
+                            <button className="edit-button" onClick={() => onEdit(order)}>
+                                <FaEdit/>
+                            </button>
+                            <button className="delete-button" onClick={() => onDelete(order.id)}>
+                                <FaTrash/>
+                            </button>
+                        </div>
                     </td>
                 </tr>
-            ))}
+                ))}
             </tbody>
         </table>
     );

@@ -39,8 +39,13 @@ const OrderListPage = () => {
             {isFormOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <OrderForm initialData={selectedOrder} onClose={closeForm} />
-                        <button className="close-button" onClick={closeForm}>Close</button>
+                        <div className="modal-header">
+                            <h3>Order Form</h3>
+                            <button className="close-button" onClick={closeForm}>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <OrderForm initialData={selectedOrder} onClose={closeForm}/>
                     </div>
                 </div>
             )}

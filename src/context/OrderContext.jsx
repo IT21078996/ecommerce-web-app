@@ -1,20 +1,31 @@
 import { createContext, useState, useContext } from 'react';
 import axios from 'axios';
+import {useAuth} from "./AuthContext.jsx";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const OrderContext = createContext();
 
 export const OrderProvider = ({ children }) => {
+    const {user} = useAuth();
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Function to fetch orders from API
+    // Fetch orders based on role
     const fetchOrders = async () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`${baseUrl}/Order`);
+            let response;
+
+            if (user.role === 'Vendor') {
+                response = await axios.get(`${baseUrl}/Order/vendor/${user.id}`);
+            } else if (user.role === 'Administrator' || user.role === 'CSR') {
+                response = await axios.get(`${baseUrl}/Order`);
+            } else {
+                throw new Error('Unauthorized role');
+            }
+
             setOrders(response.data);
         } catch (err) {
             console.error('Error fetching orders:', err);
