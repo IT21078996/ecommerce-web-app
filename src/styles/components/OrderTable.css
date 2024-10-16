@@ -30,3 +30,7 @@
 .label-cancelled {
     background-color: #dc3545;
 }
+
+.label-partially-ready {
+    background-color: #f0ad4e;
+}

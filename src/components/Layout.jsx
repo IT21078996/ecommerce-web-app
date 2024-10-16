@@ -15,11 +15,19 @@ const Layout = ({ children }) => {
         navigate('/login');
     };
 
+    // If the user is not logged in, don't show the sidebar
+    if (!user) {
+        return <>{children}</>;
+    }
+
     return (
         <div className={`layout ${isCollapsed ? 'collapsed' : ''}`}>
             <aside className="sidebar">
                 <div className="collapse-toggle" onClick={() => setIsCollapsed(!isCollapsed)}>
                     <span>{isCollapsed ? '>' : '<'}</span>
+                </div>
+                <div className="user-info">
+                    <span className="username">{user.email.split('@')[0]}</span>
                 </div>
                 <nav>
                     <ul>

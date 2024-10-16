@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from "react";
+import {useLoading} from "../../context/Loading.jsx";
 import { useUsers } from "../../context/UserContext";
 import UserTable from "../../components/UserTable";
 import UserForm from "../../components/UserForm";
+import Spinner from "../../components/Spinner.jsx";
 import "../../styles/components/OrderForm.css";
 
 const UserListPage = () => {
   const { users, fetchUsers, updateUser, deleteUser } = useUsers();
+  const { loading, startLoading, stopLoading } = useLoading();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
-    fetchUsers();
+    const loadUsers = async () => {
+      try {
+        startLoading();
+        await fetchUsers();
+      } catch (error) {
+        console.error('Failed to fetch users:', error);
+      } finally {
+        stopLoading();
+      }
+    };
+
+    loadUsers();
   }, []);
 
   // Filter active users on the frontend
@@ -60,12 +74,12 @@ const UserListPage = () => {
       </div>
 
       {/* Pass the filtered active users to UserTable */}
-      <UserTable
-        users={activeUsers}
-        onEdit={openForm}
-        onDelete={handleDelete}
-        onToggleStatus={handleToggleStatus}
-      />
+      {loading ? <Spinner /> : <UserTable
+          users={activeUsers}
+          onEdit={openForm}
+          onDelete={handleDelete}
+          onToggleStatus={handleToggleStatus}
+      />}
 
       {/* Modal for creating or editing users */}
       {isFormOpen && (
