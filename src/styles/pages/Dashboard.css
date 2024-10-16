@@ -1,0 +1,47 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.metrics {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.metric-box {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.orders-overview, .product-performance, .vendor-performance, .recent-activity {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.orders-overview table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orders-overview th, .orders-overview td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.orders-overview th {
+    background-color: #f1f1f1;
+}
+
+.chart {
+    height: 200px;
+    width: 100%;
+    background-color: #eef;
+}

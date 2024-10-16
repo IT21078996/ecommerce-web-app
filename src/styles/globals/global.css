@@ -3,7 +3,7 @@ body {
     color: var(--text-dark);
     background-color: var(--background-dark);
     margin: 0;
-    padding: 2rem;
+    padding: 1rem;
     box-sizing: border-box;
 }
 

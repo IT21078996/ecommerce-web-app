@@ -36,6 +36,7 @@
 .login-container button {
     width: 100%;
     padding: 15px;
+    display: unset;
     background-color: #1abc9c;
     color: white;
     border: none;

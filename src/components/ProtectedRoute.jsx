@@ -1,9 +1,15 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
+import Spinner from '../components/Spinner.jsx';
 
 const ProtectedRoute = ({ children, roles }) => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
+
+    // If still checking token, don't render anything yet
+    if (loading) {
+        return <Spinner />;
+    }
 
     // If user is not logged in, redirect to login page
     if (!user) {

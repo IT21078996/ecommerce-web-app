@@ -15,6 +15,23 @@ const ORDER_STATUSES = [
     'Cancelled',           // 5
 ];
 
+const getDynamicOrderStatus = (order) => {
+    if (order.status !== 1) {
+        return ORDER_STATUSES[order.status];
+    }
+
+    const uniqueVendors = new Set(order.products.map(product => product.vendorId));
+    const hasMultipleVendors = uniqueVendors.size > 1;
+
+    const someReady = order.products.some(product => product.isReady);
+
+    if (hasMultipleVendors && someReady) {
+        return "Partially Ready";
+    } else {
+        return ORDER_STATUSES[order.status];
+    }
+};
+
 const OrderTable = ({ orders, onEdit, onDelete }) => {
     const { user } = useAuth();
     const [usernames, setUsernames] = useState({});
@@ -55,7 +72,11 @@ const OrderTable = ({ orders, onEdit, onDelete }) => {
         }
     };
 
-    const getStatusLabelClass = (status) => {
+    const getStatusLabelClass = (status, dynamicStatus) => {
+        if (dynamicStatus === 'Partially Ready') {
+            return 'label label-partially-ready';
+        }
+
         switch (status) {
             case 0:
                 return 'label label-pending';
@@ -70,7 +91,7 @@ const OrderTable = ({ orders, onEdit, onDelete }) => {
             case 5:
                 return 'label label-cancelled';
             default:
-                return 'label';
+                return 'label label-partially-ready';
         }
     };
 
@@ -126,7 +147,11 @@ const OrderTable = ({ orders, onEdit, onDelete }) => {
                     <td>{usernames[order.customerId] || ''}</td>
                     <td>{order.products ? order.products.length : 0}</td>
                     <td>Rs.{order.totalAmount.toFixed(2)}</td>
-                    <td><span className={getStatusLabelClass(order.status)}>{ORDER_STATUSES[order.status]}</span></td>
+                    <td>
+                        <span className={getStatusLabelClass(order.status, getDynamicOrderStatus(order))}>
+                            {getDynamicOrderStatus(order)}
+                        </span>
+                    </td>
                     <td>
                         {renderVendorActions(order)}
                         {renderCsrAdminActions(order)}
@@ -142,7 +167,7 @@ const OrderTable = ({ orders, onEdit, onDelete }) => {
                         </div>
                     </td>
                 </tr>
-                ))}
+            ))}
             </tbody>
         </table>
     );

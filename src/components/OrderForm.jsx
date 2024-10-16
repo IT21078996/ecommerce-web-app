@@ -65,6 +65,7 @@ const OrderForm = ({ initialData = {}, onClose }) => {
             {order.products.map((product, index) => (
                 <div key={product.productId} className="product-item">
                     <span>{product.productName}</span>
+                    <span>x{product.quantity}</span>
                     <div className="product-checkbox-container">
                         <input
                             type="checkbox"
