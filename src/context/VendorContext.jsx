@@ -23,9 +23,10 @@ export const VendorProvider = ({ children }) => {
   const fetchReviewsByVendor = async (vendorId) => {
     try {
       const response = await axios.get(`${baseUrl}/Review/vendor/${vendorId}`);
-      setReviews(response.data);
+      return response.data;
     } catch (error) {
       console.error('Error fetching reviews:', error);
+      return [];
     }
   };
 
