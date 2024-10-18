@@ -118,7 +118,7 @@ const OrderTable = ({ orders, onEdit, onDelete }) => {
             if (order.status === 3) {
                 return <button onClick={() => handleStatusChange(order.id, 4)}>Mark as Delivered</button>;
             }
-            if (order.status !== 5) {
+            if (order.status !== 4 && order.status !== 5) {
                 return <button onClick={() => handleCancelOrder(order.id)}>Cancel Order</button>;
             }
         }

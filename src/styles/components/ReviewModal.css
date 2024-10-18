@@ -1,0 +1,17 @@
+.modal-body {
+    margin-top: 10px;
+}
+
+.review {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.review:last-child {
+    border-bottom: none;
+}
+
+p {
+    margin: 0;
+    background-color: unset;
+}

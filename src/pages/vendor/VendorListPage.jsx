@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import { useVendors } from "../../context/VendorContext";
 import VendorTable from "../../components/VendorTable";
 import VendorForm from "../../components/VendorForm";
-import {useNavigate} from "react-router-dom";
+import ReviewModal from "../../components/ReviewModal.jsx";
 
 const VendorListPage = () => {
-  const { vendors, deleteVendor, updateVendor, addVendor } = useVendors();
+  const { vendors, deleteVendor, updateVendor, addVendor, fetchReviewsByVendor } = useVendors();
   const [selectedVendor, setSelectedVendor] = useState(null);
   const [isAddingNew, setIsAddingNew] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const navigate = useNavigate();
 
   // Handle when a user clicks "Edit" on a vendor
@@ -56,13 +59,26 @@ const VendorListPage = () => {
   //   setIsAddingNew(true); // Switch to add mode
   // };
 
+  // Fetch reviews and open review modal
+  const handleViewReviews = async (vendorId) => {
+    const fetchedReviews = await fetchReviewsByVendor(vendorId);
+    setReviews(fetchedReviews);
+    setIsReviewModalOpen(true);
+  };
+
+  // Close review modal
+  const handleCloseReviewModal = () => {
+    setIsReviewModalOpen(false);
+    setReviews([]);
+  };
+
   return (
     <div className={"product-list"}>
       <div className="header">
         <h2>Vendor Management</h2>
         <button className="create-button" onClick={handleAddVendor}>Create Vendor</button>
       </div>
-      <VendorTable vendors={vendors} onEdit={handleEdit} onDelete={handleDelete}/>
+      <VendorTable vendors={vendors} onEdit={handleEdit} onDelete={handleDelete} onViewReviews={handleViewReviews}/>
       {selectedVendor && (
           <div className="modal">
             <div className="modal-content">
@@ -75,6 +91,10 @@ const VendorListPage = () => {
               <VendorForm vendor={selectedVendor} onSubmit={handleFormSubmit} onCancel={handleCancelForm}/>
             </div>
           </div>
+      )}
+
+      {isReviewModalOpen && (
+          <ReviewModal reviews={reviews} onClose={handleCloseReviewModal}/>
       )}
     </div>
   );
